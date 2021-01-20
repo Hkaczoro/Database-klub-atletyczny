@@ -22,7 +22,6 @@ public class Kategorie_wiekoweDAO {
     public List<Kategorie_wiekowe> list() {
         String sql = "SELECT * FROM KATEGORIE_WIEKOWE";
         List<Kategorie_wiekowe> listKatwiek = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Kategorie_wiekowe.class));
-
         return listKatwiek;
     }
 
@@ -33,10 +32,12 @@ public class Kategorie_wiekoweDAO {
 
     // Read
     public Kategorie_wiekowe get(int nr_kategorii) {
+        /*
         Object[] args = {nr_kategorii};
         String sql = "SELECT * FROM KATEGORIE_WIEKOWE WHERE nr_kategorii =" + args[0];
         Kategorie_wiekowe katwiek = jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(Kategorie_wiekowe.class));
-        return katwiek;
+        return katwiek;*/
+        return null;
     }
 
     // Update
