@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns = "http://www.w3.org/1999/xhtml" xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kategorie Wiekowe Manager</title>
+</head>
+<body>
+
+    <div align="center">
+        <h1>Kategorie Wiekowe Rekordy</h1>
+        <table border="1" cellpadding="10">
+            <thead>
+            <tr>
+                <th>NR Kategorii</th>
+                <th>Kategoria</th>
+                <th>Min Wiek</th>
+                <th>Maks Wiek</th>
+                <th>Działanie</th>
+            </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each="Kategorie_wiekowe: ${listKatwiek}">
+                    <td th:text = "${Kategorie_wiekowe.nr_kategorii}">NR Kategorii</td>
+                    <td th:text = "${Kategorie_wiekowe.kategoria}">Kategoria</td>
+                    <td th:text = "${Kategorie_wiekowe.minimalny_wiek}">Min Wiek</td>
+                    <td th:text = "${Kategorie_wiekowe.maksymalny_wiek}">Maks Wiek</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

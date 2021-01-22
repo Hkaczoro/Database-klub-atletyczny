@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<!-- Project details -->
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>Example</groupId>
+	<artifactId>Test</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Test</name>
+	<description>Demo project for Spring Boot</description>
+	<!-- Parent details -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.4.2</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<!-- Java 11 -->
+	<properties>
+		<java.version>11</java.version>
+	</properties>
+
+	<!-- Specify dependency -->
+	<dependencies>
+		<!-- Spring boot starter thymeleaf -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
+		<!-- Specify dependency-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Spring boot starter jdbc -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+
+		<!-- Spring boot starter web -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<!-- Oracle JDBC driver -->
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc10</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>H:/BDBT/Oracle_JDBC_Drivers/ojdbc10.jar</systemPath>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<!-- All plugins -->
+		<plugins>
+			<!-- Spring boot maven plugin -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
