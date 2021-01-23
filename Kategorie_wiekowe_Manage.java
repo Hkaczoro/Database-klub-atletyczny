@@ -18,6 +18,7 @@ public class Kategorie_wiekowe_Manage {
 
         Kategorie_wiekoweDAO dao = new Kategorie_wiekoweDAO(new JdbcTemplate(dataSource));
         System.out.println(dao.list());
+        System.out.println(dao.get(29));
     }
 
 }

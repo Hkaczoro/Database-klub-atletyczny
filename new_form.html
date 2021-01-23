@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns = "http://www.w3.org/1999/xhtml" xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Nowa Kategoria Wiekowa </title>
+</head>
+<body>
+
+<div align="center">
+    <h1>Kategorie Wiekowe Utwórz</h1>
+
+    <br/>
+
+    <form action="#" th:action="@{/save}" th:object="${kategorie_wiekowe}" method="post">
+        <table border="1" cellpadding="10">
+            <tr>
+                <td>Kategoria wiekowa</td>
+                <td><input type="text" th:field="*{kategoria}"></td>
+            </tr>
+
+            <tr>
+                <td>Minimalny wiek</td>
+                <td><input type="text" th:field="*{minimalny_wiek}"></td>
+            </tr>
+
+            <tr>
+                <td>Maksymalny wiek</td>
+                <td><input type="text" th:field="*{maksymalny_wiek}"></td>
+            </tr>
+
+            <tr>
+                <td colspan="2"><button type="submit">Save</button></td>
+            </tr>
+
+        </table>
+    </form>
+
+</div>
+
+</body>
+</html>

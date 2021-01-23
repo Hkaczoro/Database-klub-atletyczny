@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns = "http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns = "http://www.w3.org/1999/xhtml" xmlns:th = "http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Kategorie Wiekowe Manager</title>
@@ -8,6 +8,9 @@
 
     <div align="center">
         <h1>Kategorie Wiekowe Rekordy</h1>
+
+        <a href="/Test/templates/new_form.html">Enter new category</a>
+
         <table border="1" cellpadding="10">
             <thead>
             <tr>
@@ -15,26 +18,20 @@
                 <th>Kategoria</th>
                 <th>Min Wiek</th>
                 <th>Maks Wiek</th>
-                <th>Dzialanie</th>
+                <th>Działanie</th>
             </tr>
             </thead>
 
             <tbody>
-            <tr th:each="KategoriaWiekowa: ${listKatwiek}">
-                <td th:text = "${KategoriaWiekowa.nr_kategorii}">NR Kategorii</td>
-                <td th:text = "${KategoriaWiekowa.kategoria}">Kategoria</td>
-                <td th:text = "${KategoriaWiekowa.minimalny_wiek}">Min Wiek</td>
-                <td th:text = "${KategoriaWiekowa.maksymalny_wiek}">Maks Wiek</td>
-
-            </tr>
+                <tr th:each="Kategorie_wiekowe: ${listKatwiek}">
+                    <td th:text = "${Kategorie_wiekowe.nr_kategorii}">NR Kategorii</td>
+                    <td th:text = "${Kategorie_wiekowe.kategoria}">Kategoria</td>
+                    <td th:text = "${Kategorie_wiekowe.minimalny_wiek}">Min Wiek</td>
+                    <td th:text = "${Kategorie_wiekowe.maksymalny_wiek}">Maks Wiek</td>
+                </tr>
             </tbody>
-
         </table>
     </div>
-
-
-
-
 
 </body>
 </html>
