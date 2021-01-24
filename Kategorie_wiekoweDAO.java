@@ -17,6 +17,7 @@ public class Kategorie_wiekoweDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+
     // Constructor for jdbcTemplate
     public Kategorie_wiekoweDAO(JdbcTemplate jdbcTemplate) {
         super();
@@ -26,6 +27,12 @@ public class Kategorie_wiekoweDAO {
     public List<Kategorie_wiekowe> list() {
         String sql = "SELECT * FROM KATEGORIE_WIEKOWE";
         List<Kategorie_wiekowe> listKatwiek = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Kategorie_wiekowe.class));
+        return listKatwiek;
+    }
+
+    public List<String> listcol(String col) {
+        String sql = "SELECT" + " " + col + " " + "FROM KATEGORIE_WIEKOWE";
+        List<String> listKatwiek = jdbcTemplate.queryForList(sql,String.class);
         return listKatwiek;
     }
 
