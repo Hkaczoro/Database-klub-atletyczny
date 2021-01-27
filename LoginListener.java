@@ -11,6 +11,8 @@ public class LoginListener implements ActionListener {
     //Panel logowania, potrzebny do pobrania loginu i hasła
     private LoginPanel loginPanel;
 
+    private UserValidator UV;
+
     public void setPanel(LoginPanel loginPanel) {
         this.loginPanel = loginPanel;
     }
@@ -30,7 +32,9 @@ public class LoginListener implements ActionListener {
                     frame.getContentPane().removeAll();
                     frame.setVisible(false);
                     frame.dispose();
-                    new GUI();
+                    UV = new UserValidator();
+                    boolean a = UV.checkAccess(name, password);
+                    new GUI(a);
 
                 }
             });
