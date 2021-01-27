@@ -173,6 +173,10 @@ public class GUI extends JFrame implements ActionListener {
             DeleteAll.setVisible(false);
         }
 
+        exit = new JButton("Log out");
+        exit.setBounds(3, 3, 50, 50);
+        add(exit);
+        exit.addActionListener(this);
 
     }
 
@@ -211,6 +215,11 @@ public class GUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
+
+        if(source == exit){
+            dispose();
+            Frame frame = new Frame();
+        }
 
         if (changeTable.getSelectedIndex() == 0){
             pom = 0;
