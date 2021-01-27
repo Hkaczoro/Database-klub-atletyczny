@@ -5,22 +5,27 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 
-public class GUI extends JFrame {
+public class GUI extends JFrame implements ActionListener {
 
-    private JButton ButtonDisplay;
+    private JButton ButtonDisplay, S;
+    private JTable table;
+    private JScrollPane sp;
 
     public GUI() {
         super("Klub lekkoatletyczny");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-        setBounds(400,400,1500,1000);
+        setBounds(400,200,1500,1000);
 
         ButtonDisplay = new JButton("Wyświetl");
         ButtonDisplay.setBounds(90,900,150,50);
         add(ButtonDisplay);
+        ButtonDisplay.addActionListener(this);
 
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setUrl("jdbc:oracle:thin:@ora3.elka.pw.edu.pl:1521:ora3inf");
@@ -31,11 +36,13 @@ public class GUI extends JFrame {
 
 
         DefaultTableModel model = new javax.swing.table.DefaultTableModel(new String[] {"Nr_kategorii", "Kategoria", "Minimalny wiek", "Maksymalny wiek" },0);
-        JTable table = new JTable();
+        table = new JTable();
         addDataToTable(dao,table,model);
-        JScrollPane sp = new JScrollPane(table);
+        sp = new JScrollPane(table);
         sp.setBounds(50,50,800,100);
         add(sp);
+        table.setEnabled(false);
+        sp.setVisible(false);
 
 
         setLayout(null);
@@ -54,6 +61,19 @@ public class GUI extends JFrame {
         }
 
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object source = e.getSource();
+
+        if(source==ButtonDisplay){
+            sp.setVisible(true);
+            //System.out.println("DisplayButton");
+        }
+
+
+    }
+
 
 
 }
