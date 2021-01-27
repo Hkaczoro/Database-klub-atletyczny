@@ -25,9 +25,11 @@ public class GUI extends JFrame implements ActionListener {
     private DriverManagerDataSource dataSource;
     private DefaultTableModel model;
     private JComboBox changeTable;
+    private int pom;
 
     public GUI(boolean a) {
         super("Klub lekkoatletyczny");
+        int pom = 0;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         setBounds(400,200,1500,1000);
@@ -171,6 +173,7 @@ public class GUI extends JFrame implements ActionListener {
             DeleteAll.setVisible(false);
         }
 
+
     }
 
     public void addDataToTable(Kategorie_wiekoweDAO dao, JTable table, DefaultTableModel model) {
@@ -210,6 +213,8 @@ public class GUI extends JFrame implements ActionListener {
         Object source = e.getSource();
 
         if (changeTable.getSelectedIndex() == 0){
+            pom = 0;
+            model = new javax.swing.table.DefaultTableModel(new String[] {"Nr_kategorii", "Kategoria", "Minimalny wiek", "Maksymalny wiek" },0);
             dao = new Kategorie_wiekoweDAO(new JdbcTemplate(dataSource));
             model.getDataVector().removeAllElements();
             addDataToTable(dao,table,model);
@@ -321,15 +326,18 @@ public class GUI extends JFrame implements ActionListener {
 
         }
         if (changeTable.getSelectedIndex() == 1){
-            sp.setSize(900,500);
-            table.setSize(900,500);
-            model.getDataVector().removeAllElements();
-            model.setColumnIdentifiers(new String[] {"Nr_zawodnika", "Imie", "Nazwisko", "Płeć", "Wzrost", "Waga", "Data_urodzenia", "Narodowość", "Pesel", "Nr_kategorii", "Nr_adresu"});
-            table.getColumnModel().getColumn(2).setPreferredWidth(100);
-            table.getColumnModel().getColumn(6).setPreferredWidth(130);
-            table.getColumnModel().getColumn(8).setPreferredWidth(100);
-            daozaw = new ZawodnicyDAO(new JdbcTemplate(dataSource));
-            addDataZawToTable(daozaw,table,model);
+            if(pom==0){
+                sp.setSize(900,500);
+                table.setSize(900,500);
+                model.getDataVector().removeAllElements();
+                model.setColumnIdentifiers(new String[] {"Nr_zawodnika", "Imie", "Nazwisko", "Płeć", "Wzrost", "Waga", "Data_urodzenia", "Narodowość", "Pesel", "Nr_kategorii", "Nr_adresu"});
+                table.getColumnModel().getColumn(2).setPreferredWidth(100);
+                table.getColumnModel().getColumn(6).setPreferredWidth(130);
+                table.getColumnModel().getColumn(8).setPreferredWidth(100);
+                daozaw = new ZawodnicyDAO(new JdbcTemplate(dataSource));
+                addDataZawToTable(daozaw,table,model);
+                pom += 1;
+            }
             if(source==ButtonDisplay){
                 sp.setVisible(true);
                 inputPanel.setVisible(false);
@@ -339,6 +347,7 @@ public class GUI extends JFrame implements ActionListener {
 
         }
         if (changeTable.getSelectedIndex() == 2){
+            pom = 0;
 
         }
 
