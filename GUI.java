@@ -13,12 +13,13 @@ import java.util.List;
 
 public class GUI extends JFrame implements ActionListener {
 
-    private JButton ButtonDisplay, Add, Save, Update, UpdateButton, Delete, DeleteButton;
+    private JButton ButtonDisplay, Add, Save, Update, UpdateButton, Delete, DeleteButton, DeleteAll, Refresh;
     private JTextField Kategoria, Min_wiek, Max_wiek, Nr_Kategorii, Nr_KategoriiD, KategoriaU, Min_wiekU, Max_wiekU;
     private JLabel kategoria, min_wiek, maks_wiek, nr_kategorii, nr_kategoriid, kategoriau, min_wieku, maks_wieku;
     private JTable table;
     private JScrollPane sp;
     private Kategorie_wiekoweDAO dao;
+    private ZawodnicyDAO daozaw;
     private JPanel inputPanel, deletePanel, updatePanel;
     private DriverManagerDataSource dataSource;
     private DefaultTableModel model;
@@ -49,12 +50,23 @@ public class GUI extends JFrame implements ActionListener {
         add(Delete);
         Delete.addActionListener(this);
 
+        Refresh = new JButton("Refresh");
+        Refresh.setBounds(930,900,150,50);
+        add(Refresh);
+        Refresh.addActionListener(this);
+
+        DeleteAll = new JButton("DeleteAll");
+        DeleteAll.setBounds(1140,900,150,50);
+        add(DeleteAll);
+        DeleteAll.addActionListener(this);
+
         dataSource = new DriverManagerDataSource();
         dataSource.setUrl("jdbc:oracle:thin:@ora3.elka.pw.edu.pl:1521:ora3inf");
         dataSource.setUsername("jjanusz");
         dataSource.setPassword("jjanusz");
         dataSource.setDriverClassName("oracle.jdbc.OracleDriver");
         dao = new Kategorie_wiekoweDAO(new JdbcTemplate(dataSource));
+        daozaw = new ZawodnicyDAO(new JdbcTemplate(dataSource));
 
 
         model = new javax.swing.table.DefaultTableModel(new String[] {"Nr_kategorii", "Kategoria", "Minimalny wiek", "Maksymalny wiek" },0);
@@ -242,6 +254,29 @@ public class GUI extends JFrame implements ActionListener {
             KategoriaU.setText("");
             Min_wiekU.setText("");
             Max_wiekU.setText("");
+        }
+
+        if(source==Refresh){
+            dao = new Kategorie_wiekoweDAO(new JdbcTemplate(dataSource));
+            model.getDataVector().removeAllElements();
+            addDataToTable(dao,table,model);
+        }
+
+        if(source==DeleteAll){
+            List<String> listD1 =dao.listcol("NR_KATEGORII");
+            List<String> listD2 =daozaw.listcol("NR_KATEGORII");
+            table.setModel(model);
+            for(int i=0;i<listD1.size();i++) {
+                for(int j=0;j<listD2.size();j++){
+                    if(!listD1.get(i).equals(listD2.get(j))){
+                        dao.delete(Integer.parseInt(listD1.get(i)));
+                        j=listD2.size();
+                    }
+                }
+            }
+            dao = new Kategorie_wiekoweDAO(new JdbcTemplate(dataSource));
+            model.getDataVector().removeAllElements();
+            addDataToTable(dao,table,model);
         }
 
     }
