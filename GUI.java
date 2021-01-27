@@ -14,8 +14,8 @@ import java.util.List;
 public class GUI extends JFrame implements ActionListener {
 
     private JButton ButtonDisplay, Add, Save, Update, UpdateButton, Delete, DeleteButton;
-    private JTextField Kategoria, Min_wiek, Max_wiek, Nr_Kategorii, Nr_KategoriiD;
-    private JLabel kategoria, min_wiek, maks_wiek, nr_kategorii, nr_kategoriid;
+    private JTextField Kategoria, Min_wiek, Max_wiek, Nr_Kategorii, Nr_KategoriiD, KategoriaU, Min_wiekU, Max_wiekU;
+    private JLabel kategoria, min_wiek, maks_wiek, nr_kategorii, nr_kategoriid, kategoriau, min_wieku, maks_wieku;
     private JTable table;
     private JScrollPane sp;
     private Kategorie_wiekoweDAO dao;
@@ -111,12 +111,12 @@ public class GUI extends JFrame implements ActionListener {
 
         //Tworzenie Update Panelu
         nr_kategorii = new JLabel("Nr_Kategorii do usunięcia: ");
-        kategoria = new JLabel("Kategoria: ");
-        min_wiek = new JLabel("Minimalny wiek: ");
-        maks_wiek = new JLabel("Maksymalny wiek: ");
-        Kategoria = new JTextField();
-        Min_wiek = new JTextField();
-        Max_wiek = new JTextField();
+        kategoriau = new JLabel("Kategoria: ");
+        min_wieku = new JLabel("Minimalny wiek: ");
+        maks_wieku = new JLabel("Maksymalny wiek: ");
+        KategoriaU = new JTextField();
+        Min_wiekU = new JTextField();
+        Max_wiekU = new JTextField();
         Nr_Kategorii = new JTextField();
 
         //pomocniczy panel do wprowadzania danych
@@ -125,12 +125,12 @@ public class GUI extends JFrame implements ActionListener {
         updatePanel.setBounds(500,500,400,110);
         updatePanel.add(nr_kategorii);
         updatePanel.add(Nr_Kategorii);
-        updatePanel.add(kategoria);
-        updatePanel.add(Kategoria);
-        updatePanel.add(min_wiek);
-        updatePanel.add(Min_wiek);
-        updatePanel.add(maks_wiek);
-        updatePanel.add(Max_wiek);
+        updatePanel.add(kategoriau);
+        updatePanel.add(KategoriaU);
+        updatePanel.add(min_wieku);
+        updatePanel.add(Min_wiekU);
+        updatePanel.add(maks_wieku);
+        updatePanel.add(Max_wiekU);
         //tworzymy przycisk logowania
         UpdateButton = new JButton("Update");
         UpdateButton.setBounds(100,470,400,80);
@@ -222,26 +222,26 @@ public class GUI extends JFrame implements ActionListener {
             updatePanel.setVisible(true);
             sp.setVisible(true);
             Nr_Kategorii.setText("");
-            Kategoria.setText("");
-            Min_wiek.setText("");
-            Max_wiek.setText("");
+            KategoriaU.setText("");
+            Min_wiekU.setText("");
+            Max_wiekU.setText("");
         }
 
         if (source==UpdateButton){
             System.out.println("Update");
             Kategorie_wiekowe kategorie_wiekowe = new Kategorie_wiekowe();
             kategorie_wiekowe.setNr_kategorii(Integer.parseInt(Nr_Kategorii.getText()));
-            kategorie_wiekowe.setKategoria(Kategoria.getText());
-            kategorie_wiekowe.setMinimalny_wiek(Integer.parseInt(Min_wiek.getText()));
-            kategorie_wiekowe.setMaksymalny_wiek(Integer.parseInt(Max_wiek.getText()));
+            kategorie_wiekowe.setKategoria(KategoriaU.getText());
+            kategorie_wiekowe.setMinimalny_wiek(Integer.parseInt(Min_wiekU.getText()));
+            kategorie_wiekowe.setMaksymalny_wiek(Integer.parseInt(Max_wiekU.getText()));
             dao.update(kategorie_wiekowe);
             dao = new Kategorie_wiekoweDAO(new JdbcTemplate(dataSource));
             model.getDataVector().removeAllElements();
             addDataToTable(dao,table,model);
             Nr_Kategorii.setText("");
-            Kategoria.setText("");
-            Min_wiek.setText("");
-            Max_wiek.setText("");
+            KategoriaU.setText("");
+            Min_wiekU.setText("");
+            Max_wiekU.setText("");
         }
 
     }
