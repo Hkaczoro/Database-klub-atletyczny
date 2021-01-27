@@ -26,7 +26,7 @@ public class GUI extends JFrame implements ActionListener {
     private DefaultTableModel model;
     private JComboBox changeTable;
 
-    public GUI() {
+    public GUI(boolean a) {
         super("Klub lekkoatletyczny");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -163,6 +163,13 @@ public class GUI extends JFrame implements ActionListener {
 
         setResizable(false);
         setLayout(null);
+
+        if (!a){
+            Add.setVisible(false);
+            Delete.setVisible(false);
+            Update.setVisible(false);
+            DeleteAll.setVisible(false);
+        }
 
     }
 
