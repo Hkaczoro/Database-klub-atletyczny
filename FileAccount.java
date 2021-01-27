@@ -24,4 +24,24 @@ public class FileAccount {
 
         return odczyt;
     }
+
+    public void write(List<String[]> csv,File f, String separator) {
+        try{
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f)));
+
+            for (int i = 0; i < csv.size(); i++) {
+                for (int j = 0; j < csv.get(i).length; j++){
+                    writer.write(csv.get(i)[j]);
+                    if (j < csv.get(i).length - 1) {
+                        writer.write(separator);
+                    }
+                }
+                writer.newLine();
+            }
+            writer.close();
+        } catch (Exception er) {
+            System.out.println(er.getMessage());
+        }
+    }
+
 }

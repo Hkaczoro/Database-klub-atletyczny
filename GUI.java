@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -12,9 +13,15 @@ import java.util.List;
 
 public class GUI extends JFrame implements ActionListener {
 
-    private JButton ButtonDisplay, S;
+    private JButton ButtonDisplay, Add, Save;
+    private JTextField Kategoria, Min_wiek, Max_wiek;
+    private JLabel kategoria, min_wiek, maks_wiek;
     private JTable table;
     private JScrollPane sp;
+    private Kategorie_wiekoweDAO dao;
+    private JPanel inputPanel;
+    private DriverManagerDataSource dataSource;
+    private DefaultTableModel model;
 
     public GUI() {
         super("Klub lekkoatletyczny");
@@ -27,15 +34,20 @@ public class GUI extends JFrame implements ActionListener {
         add(ButtonDisplay);
         ButtonDisplay.addActionListener(this);
 
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        Add = new JButton("Add");
+        Add.setBounds(300,900,150,50);
+        add(Add);
+        Add.addActionListener(this);
+
+        dataSource = new DriverManagerDataSource();
         dataSource.setUrl("jdbc:oracle:thin:@ora3.elka.pw.edu.pl:1521:ora3inf");
         dataSource.setUsername("jjanusz");
         dataSource.setPassword("jjanusz");
         dataSource.setDriverClassName("oracle.jdbc.OracleDriver");
-        Kategorie_wiekoweDAO dao = new Kategorie_wiekoweDAO(new JdbcTemplate(dataSource));
+        dao = new Kategorie_wiekoweDAO(new JdbcTemplate(dataSource));
 
 
-        DefaultTableModel model = new javax.swing.table.DefaultTableModel(new String[] {"Nr_kategorii", "Kategoria", "Minimalny wiek", "Maksymalny wiek" },0);
+        model = new javax.swing.table.DefaultTableModel(new String[] {"Nr_kategorii", "Kategoria", "Minimalny wiek", "Maksymalny wiek" },0);
         table = new JTable();
         addDataToTable(dao,table,model);
         sp = new JScrollPane(table);
@@ -43,6 +55,31 @@ public class GUI extends JFrame implements ActionListener {
         add(sp);
         table.setEnabled(false);
         sp.setVisible(false);
+
+        kategoria = new JLabel("Kategoria: ");
+        min_wiek = new JLabel("Minimalny wiek: ");
+        maks_wiek = new JLabel("Maksymalny wiek: ");
+        Kategoria = new JTextField();
+        Min_wiek = new JTextField();
+        Max_wiek = new JTextField();
+
+        //pomocniczy panel do wprowadzania danych
+        inputPanel = new JPanel();
+        inputPanel.setLayout(new GridLayout(5, 4));
+        inputPanel.setBounds(500,500,250,90);
+        inputPanel.add(kategoria);
+        inputPanel.add(Kategoria);
+        inputPanel.add(min_wiek);
+        inputPanel.add(Min_wiek);
+        inputPanel.add(maks_wiek);
+        inputPanel.add(Max_wiek);
+        //tworzymy przycisk logowania
+        Save = new JButton("Save");
+        Save.setBounds(100,470,30,80);
+        inputPanel.add(Save);
+        Save.addActionListener(this);
+        this.add(inputPanel);
+        inputPanel.setVisible(false);
 
 
         setLayout(null);
@@ -68,11 +105,32 @@ public class GUI extends JFrame implements ActionListener {
 
         if(source==ButtonDisplay){
             sp.setVisible(true);
-            //System.out.println("DisplayButton");
+            inputPanel.setVisible(false);
+        }
+
+        if(source==Add) {
+            sp.setVisible(false);
+            inputPanel.setVisible(true);
+
+        }
+
+        if(source==Save){
+            Kategorie_wiekowe kategorie_wiekowe = new Kategorie_wiekowe(0,Kategoria.getText(),Integer.parseInt(Min_wiek.getText()),Integer.parseInt(Max_wiek.getText()));
+            dao.save(kategorie_wiekowe);
+            dao = new Kategorie_wiekoweDAO(new JdbcTemplate(dataSource));
+            model.getDataVector().removeAllElements();
+            addDataToTable(dao,table,model);
+            Kategoria.setText("");
+            Min_wiek.setText("");
+            Max_wiek.setText("");
+            inputPanel.setVisible(false);
+            sp.setVisible(true);
         }
 
 
     }
+
+
 
 
 
