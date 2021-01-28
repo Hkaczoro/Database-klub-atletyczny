@@ -7,42 +7,43 @@ import java.util.Date;
 @SpringBootApplication
 public class Zawodnicy {
 
-    private int nrZawodnika;
+    private int nr_zawodnika;
     private String imie;
     private String nazwisko;
     private String plec;
     private float wzrost;
     private float waga;
-    private String dataUrodzenia;
+    private String data_urodzenia;
     private String narodowosc;
     private String pesel;
-    private String numerAdresu;
-    private String numerKategorii;
+    private int numer_kategorii;
+    private int numer_adresu;
+    // Constructor of superclass
 
-    public Zawodnicy(int nrZawodnika, String imie, String nazwisko, String plec, float wzrost, float waga, String dataUrodzenia, String narodowosc, String pesel, String numerAdresu, String numerKategorii) {
-        this.nrZawodnika = nrZawodnika;
+    // Constructor
+
+
+    public Zawodnicy(int nr_zawodnika, String imie, String nazwisko, String plec, float wzrost, float waga, String data_urodzenia, String narodowosc, String pesel, int numer_kategorii, int numer_adresu) {
+        super();
+        this.nr_zawodnika = nr_zawodnika;
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.plec = plec;
         this.wzrost = wzrost;
         this.waga = waga;
-        this.dataUrodzenia = dataUrodzenia;
+        this.data_urodzenia = data_urodzenia;
         this.narodowosc = narodowosc;
         this.pesel = pesel;
-        this.numerAdresu = numerAdresu;
-        this.numerKategorii = numerKategorii;
+        this.numer_kategorii = numer_kategorii;
+        this.numer_adresu = numer_adresu;
     }
 
-    public Zawodnicy(){
-
+    public int getNr_zawodnika() {
+        return nr_zawodnika;
     }
 
-    public int getNrZawodnika() {
-        return nrZawodnika;
-    }
-
-    public void setNrZawodnika(int nrZawodnika) {
-        this.nrZawodnika = nrZawodnika;
+    public void setNr_zawodnika(int nr_zawodnika) {
+        this.nr_zawodnika = nr_zawodnika;
     }
 
     public String getImie() {
@@ -85,12 +86,12 @@ public class Zawodnicy {
         this.waga = waga;
     }
 
-    public String getDataUrodzenia() {
-        return dataUrodzenia;
+    public String getData_urodzenia() {
+        return data_urodzenia;
     }
 
-    public void setDataUrodzenia(String dataUrodzenia) {
-        this.dataUrodzenia = dataUrodzenia;
+    public void setData_urodzenia(String data_urodzenia) {
+        this.data_urodzenia = data_urodzenia;
     }
 
     public String getNarodowosc() {
@@ -109,19 +110,36 @@ public class Zawodnicy {
         this.pesel = pesel;
     }
 
-    public String getNumerAdresu() {
-        return numerAdresu;
+    public int getNumer_kategorii() {
+        return numer_kategorii;
     }
 
-    public void setNumerAdresu(String numerAdresu) {
-        this.numerAdresu = numerAdresu;
+    public void setNumer_kategorii(int numer_kategorii) {
+        this.numer_kategorii = numer_kategorii;
     }
 
-    public String getNumerKategorii() {
-        return numerKategorii;
+    public int getNumer_adresu() {
+        return numer_adresu;
     }
 
-    public void setNumerKategorii(String numerKategorii) {
-        this.numerKategorii = numerKategorii;
+    public void setNumer_adresu(int numer_adresu) {
+        this.numer_adresu = numer_adresu;
+    }
+
+    @Override
+    public String toString() {
+        return "Zawodnicy{" +
+                "nr_zawodnika=" + nr_zawodnika +
+                ", imie='" + imie + '\'' +
+                ", nazwisko='" + nazwisko + '\'' +
+                ", plec='" + plec + '\'' +
+                ", wzrost=" + wzrost +
+                ", waga=" + waga +
+                ", data_urodzenia='" + data_urodzenia + '\'' +
+                ", narodowosc='" + narodowosc + '\'' +
+                ", pesel='" + pesel + '\'' +
+                ", numer_kategorii=" + numer_kategorii +
+                ", numer_adresu=" + numer_adresu +
+                '}';
     }
 }

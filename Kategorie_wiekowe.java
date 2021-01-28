@@ -15,7 +15,6 @@ public class Kategorie_wiekowe {
 
 	// Constructor fos superclass
 	public Kategorie_wiekowe() {
-
 	}
 	// Constructor
 	public Kategorie_wiekowe(int nr_kategorii, String kategoria, int minimalny_wiek, int maksymalny_wiek) {

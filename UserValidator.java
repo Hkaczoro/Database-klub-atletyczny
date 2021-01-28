@@ -31,7 +31,7 @@ public class UserValidator {
         return check;
     }
 
-    public static boolean checkAccess(String name, String password){
+    public static boolean checkAccess(String name, String password) {
         boolean check = false;
         FileAccount fileaccount = new FileAccount();
         List<String[]> logindata = fileaccount.read("logindata.csv");
@@ -42,7 +42,7 @@ public class UserValidator {
             UserValidator.name = tab[0];
             UserValidator.password = tab[1];
             status = tab[2];
-            if (UserValidator.name.equals(name) & UserValidator.password.equals(password) & status == "administrator") {
+            if (UserValidator.name.equals(name) & UserValidator.password.equals(password) & status.equals("administrator")) {
                 check = true;
                 break;
             }
@@ -53,3 +53,4 @@ public class UserValidator {
         }
         return check;
     }
+}
