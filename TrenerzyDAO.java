@@ -34,7 +34,7 @@ public class TrenerzyDAO {
 
     public void save(Trenerzy trener) {
         SimpleJdbcInsert insertActor = new SimpleJdbcInsert(jdbcTemplate);
-        insertActor.withTableName("KATEGORIE_WIEKOWE").usingColumns("nr_trenera", "imie", "nazwisko", "dyscyplina", "pesel", "pensja");
+        insertActor.withTableName("TRENERZY").usingColumns("nr_trenera", "imie", "nazwisko", "dyscyplina", "pesel", "pensja");
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(trener);
         insertActor.execute(param);
     }
@@ -47,7 +47,7 @@ public class TrenerzyDAO {
     }
 
     public void update(Trenerzy trener) {
-        String sql = "UPDATE TRENERZY SET nr_trenera=:nr_trenera, imie=:imie, nazwisko=:nazwisko, dyscyplina=:dyscyplina, pesel=:pesel, pensja=:pensja";
+        String sql = "UPDATE TRENERZY SET  imie=:imie, nazwisko=:nazwisko, dyscyplina=:dyscyplina, pesel=:pesel, pensja=:pensja WHERE nr_trenera=:nr_trenera";
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(trener);
         NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(jdbcTemplate);
         template.update(sql,param);

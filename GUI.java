@@ -14,13 +14,17 @@ import java.util.List;
 
 public class GUI extends JFrame implements ActionListener {
 
-    private JButton ButtonDisplay, Add, Save, SaveZ, Update, UpdateButton, UpdateButtonZ, Delete, DeleteButton, DeleteButtonZ, DeleteAll, Refresh, exit;
+    private JButton ButtonDisplay, Add, Save, SaveZ, SaveT, Update, UpdateButton, UpdateButtonZ, UpdateButtonT, Delete, DeleteButton, DeleteButtonZ, DeleteButtonT, DeleteAll, Refresh, exit;
     private JTextField Kategoria, Min_wiek, Max_wiek, Nr_Kategorii, Nr_KategoriiD, KategoriaU, Min_wiekU, Max_wiekU;
     private JTextField Nr_Zawodnika, Imie, Nazwisko, Plec, Wzrost, Waga, Data_Urodzenia, Narodowosc, Pesel, Nr_KategoriiZ, Nr_Adresu;
     private JTextField Nr_ZawodnikaD, ImieU, NazwiskoU, PlecU, WzrostU, WagaU, Data_UrodzeniaU, NarodowoscU, PeselU, Nr_KategoriiZU, Nr_AdresuU;
+    private JTextField Nr_TreneraD, ImieT, NazwiskoT, DyscyplinaT, PeselT, PensjaT;
+    private JTextField Nr_TreneraU, ImieTU, NazwiskoTU, DyscyplinaTU, PeselTU, PensjaTU;
     private JLabel nr_zawodnika, imie, nazwisko, plec, wzrost, waga, data_urodzenia, narodowosc, pesel, nr_kategoriiz, nr_adresu;
     private JLabel nr_zawodnikad, imieu, nazwiskou, plecu, wzrostu, wagau, data_urodzeniau, narodowoscu, peselu, nr_kategoriizu, nr_adresuu;
     private JLabel kategoria, min_wiek, maks_wiek, nr_kategorii, nr_kategoriid, kategoriau, min_wieku, maks_wieku;
+    private JLabel nr_trenerad, imiet, nazwiskot, dyscyplinat, peselt, pensjat;
+    private JLabel nr_trenerau, imietu, nazwiskotu, dyscyplinatu, peseltu, pensjatu;
     private JTable table;
     private JScrollPane sp;
     private Kategorie_wiekoweDAO dao;
@@ -28,14 +32,17 @@ public class GUI extends JFrame implements ActionListener {
     private TrenerzyDAO daotre;
     private JPanel inputPanel, deletePanel, updatePanel;
     private JPanel inputPanelZ, deletePanelZ, updatePanelZ;
+    private JPanel inputPanelT, deletePanelT, updatePanelT;
     private DriverManagerDataSource dataSource;
     private DefaultTableModel model;
     private JComboBox changeTable;
-    private int pom;
+    private int pomk, pomz, pomt;
 
     public GUI(boolean a) {
         super("Klub lekkoatletyczny");
-        int pom = 0;
+        int pomk = 0;
+        int pomz = 0;
+        int pomt = 0;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         setBounds(400,200,1500,1000);
@@ -172,6 +179,102 @@ public class GUI extends JFrame implements ActionListener {
 
 
 //////////
+        imiet = new JLabel("Imię: ");
+        nazwiskot = new JLabel("Nazwisko: ");
+        dyscyplinat = new JLabel("Nazwisko: ");
+        peselt= new JLabel("Nazwisko: ");
+        pensjat = new JLabel("Nazwisko: ");
+        //
+        ImieT = new JTextField();
+        NazwiskoT = new JTextField();
+        PeselT = new JTextField();
+        DyscyplinaT = new JTextField();
+        PensjaT = new JTextField();
+
+
+        //pomocniczy panel do wprowadzania danych
+        inputPanelT = new JPanel();
+        inputPanelT.setLayout(new GridLayout(6, 2));
+        inputPanelT.setBounds(1000,300,300,300);
+        inputPanelT.add(imiet);
+        inputPanelT.add(ImieT);
+        inputPanelT.add(nazwiskot);
+        inputPanelT.add(NazwiskoT);
+        inputPanelT.add(dyscyplinat);
+        inputPanelT.add(DyscyplinaT);
+        inputPanelT.add(peselt);
+        inputPanelT.add(PeselT);
+        inputPanelT.add(pensjat);
+        inputPanelT.add(PensjaT);
+        //tworzymy przycisk logowania
+        SaveT = new JButton("Save");
+        SaveT.setBounds(100,470,30,80);
+        inputPanelT.add(SaveT);
+        SaveT.addActionListener(this);
+        this.add(inputPanelT);
+        inputPanelT.setVisible(false);
+
+        //Tworzenie Delete Panelu
+        nr_trenerad = new JLabel("Nr Trenera do usunięcia: ");
+        Nr_TreneraD = new JTextField();
+        //pomocniczy panel do wprowadzania danych
+        deletePanelT = new JPanel();
+        deletePanelT.setLayout(new GridLayout(2, 2));
+        deletePanelT.setBounds(500,500,400,50);
+        deletePanelT.add(nr_trenerad);
+        deletePanelT.add(Nr_TreneraD);
+        //tworzymy przycisk logowania
+        DeleteButtonT = new JButton("Delete");
+        DeleteButtonT.setBounds(100,470,400,80);
+        deletePanelT.add(DeleteButtonT);
+        DeleteButtonT.addActionListener(this);
+        this.add(deletePanelT);
+        deletePanelT.setVisible(false);
+
+        //Tworzenie Update Panelu
+        nr_trenerau = new JLabel("Nr Trenera: ");
+        imietu = new JLabel("Imię: ");
+        nazwiskotu = new JLabel("Nazwisko: ");
+        dyscyplinatu = new JLabel("Dyscyplina: ");
+        peseltu= new JLabel("Pesel: ");
+        pensjatu = new JLabel("Pensja: ");
+        //
+        Nr_TreneraU = new JTextField();
+        ImieTU = new JTextField();
+        NazwiskoTU = new JTextField();
+        PeselTU = new JTextField();
+        DyscyplinaTU = new JTextField();
+        PensjaTU = new JTextField();
+
+        //pomocniczy panel do wprowadzania danych
+        updatePanelT = new JPanel();
+        updatePanelT.setLayout(new GridLayout(7, 2));
+        updatePanelT.setBounds(500,500,400,110);
+        updatePanelT.add(nr_trenerau);
+        updatePanelT.add(Nr_TreneraU);
+        updatePanelT.add(imietu);
+        updatePanelT.add(ImieTU);
+        updatePanelT.add(nazwiskotu);
+        updatePanelT.add(NazwiskoTU);
+        updatePanelT.add(dyscyplinatu);
+        updatePanelT.add(DyscyplinaTU);
+        updatePanelT.add(peseltu);
+        updatePanelT.add(PeselTU);
+        updatePanelT.add(pensjatu);
+        updatePanelT.add(PensjaTU);
+        //tworzymy przycisk logowania
+        UpdateButtonT = new JButton("Update");
+        UpdateButtonT.setBounds(100,470,400,80);
+        updatePanelT.add(UpdateButtonT);
+        UpdateButtonT.addActionListener(this);
+        this.add(updatePanelT);
+        updatePanelT.setVisible(false);
+
+
+/////////////////////
+
+        //////////
+
         imie = new JLabel("Imię: ");
         nazwisko = new JLabel("Nazwisko: ");
         plec = new JLabel("Plec: ");
@@ -227,14 +330,14 @@ public class GUI extends JFrame implements ActionListener {
         inputPanelZ.setVisible(false);
 
         //Tworzenie Delete Panelu
-        nr_kategoriid = new JLabel("Nr_Kategorii do usunięcia: ");
-        Nr_KategoriiD = new JTextField();
+        nr_zawodnikad = new JLabel("Nr Zawodnika do usunięcia: ");
+        Nr_ZawodnikaD = new JTextField();
         //pomocniczy panel do wprowadzania danych
         deletePanelZ = new JPanel();
         deletePanelZ.setLayout(new GridLayout(2, 2));
-        deletePanelZ.setBounds(500,500,400,50);
-        deletePanelZ.add(nr_kategoriid);
-        deletePanelZ.add(Nr_KategoriiD);
+        deletePanelZ.setBounds(500,700,400,50);
+        deletePanelZ.add(nr_zawodnikad);
+        deletePanelZ.add(Nr_ZawodnikaD);
         //tworzymy przycisk logowania
         DeleteButtonZ = new JButton("Delete");
         DeleteButtonZ.setBounds(100,470,400,80);
@@ -244,34 +347,63 @@ public class GUI extends JFrame implements ActionListener {
         deletePanelZ.setVisible(false);
 
         //Tworzenie Update Panelu
-        nr_kategorii = new JLabel("Nr_Kategorii do usunięcia: ");
-        kategoriau = new JLabel("Kategoria: ");
-        min_wieku = new JLabel("Minimalny wiek: ");
-        maks_wieku = new JLabel("Maksymalny wiek: ");
-        KategoriaU = new JTextField();
-        Min_wiekU = new JTextField();
-        Max_wiekU = new JTextField();
-        Nr_Kategorii = new JTextField();
+        nr_zawodnika = new JLabel("Nr zawodnika: ");
+        imieu = new JLabel("Imię: ");
+        nazwiskou = new JLabel("Nazwisko: ");
+        plecu = new JLabel("Plec: ");
+        wzrostu = new JLabel("Wzrost: ");
+        wagau = new JLabel("Waga: ");
+        data_urodzeniau = new JLabel("Data urodzenia: ");
+        narodowoscu = new JLabel("Narodowość: ");
+        peselu = new JLabel("Pesel: ");
+        nr_kategoriizu = new JLabel("Nr Kategorii: ");
+        nr_adresuu = new JLabel("Nr Adresu: ");
+        //
+        Nr_Zawodnika = new JTextField();
+        ImieU = new JTextField();
+        NazwiskoU = new JTextField();
+        PlecU = new JTextField();
+        WzrostU = new JTextField();
+        WagaU = new JTextField();
+        Data_UrodzeniaU = new JTextField();
+        NarodowoscU = new JTextField();
+        PeselU = new JTextField();
+        Nr_KategoriiZU = new JTextField();
+        Nr_AdresuU = new JTextField();
 
         //pomocniczy panel do wprowadzania danych
         updatePanelZ = new JPanel();
         updatePanelZ.setLayout(new GridLayout(5, 5));
-        updatePanelZ.setBounds(500,500,400,110);
-        updatePanelZ.add(nr_kategorii);
-        updatePanelZ.add(Nr_Kategorii);
-        updatePanelZ.add(kategoriau);
-        updatePanelZ.add(KategoriaU);
-        updatePanelZ.add(min_wieku);
-        updatePanelZ.add(Min_wiekU);
-        updatePanelZ.add(maks_wieku);
-        updatePanelZ.add(Max_wiekU);
+        updatePanelZ.setBounds(500,700,400,110);
+        updatePanelZ.add(nr_zawodnika);
+        updatePanelZ.add(Nr_Zawodnika);
+        updatePanelZ.add(imieu);
+        updatePanelZ.add(ImieU);
+        updatePanelZ.add(nazwiskou);
+        updatePanelZ.add(NazwiskoU);
+        updatePanelZ.add(plecu);
+        updatePanelZ.add(PlecU);
+        updatePanelZ.add(wzrostu);
+        updatePanelZ.add(WzrostU);
+        updatePanelZ.add(wagau);
+        updatePanelZ.add(WagaU);
+        updatePanelZ.add(data_urodzeniau);
+        updatePanelZ.add(Data_UrodzeniaU);
+        updatePanelZ.add(narodowoscu);
+        updatePanelZ.add(NarodowoscU);
+        updatePanelZ.add(peselu);
+        updatePanelZ.add(PeselU);
+        updatePanelZ.add(nr_kategoriizu);
+        updatePanelZ.add(Nr_KategoriiZU);
+        updatePanelZ.add(nr_adresuu);
+        updatePanelZ.add(Nr_AdresuU);
         //tworzymy przycisk logowania
-        UpdateButton = new JButton("Update");
-        UpdateButton.setBounds(100,470,400,80);
-        updatePanel.add(UpdateButton);
-        UpdateButton.addActionListener(this);
-        this.add(updatePanel);
-        updatePanel.setVisible(false);
+        UpdateButtonZ = new JButton("Update");
+        UpdateButtonZ.setBounds(100,470,400,80);
+        updatePanelZ.add(UpdateButtonZ);
+        UpdateButtonZ.addActionListener(this);
+        this.add(updatePanelZ);
+        updatePanelZ.setVisible(false);
 
 
 /////////////////////
@@ -351,22 +483,39 @@ public class GUI extends JFrame implements ActionListener {
 
 
         if (changeTable.getSelectedIndex() == 0){
-            pom = 0;
-            model = new javax.swing.table.DefaultTableModel(new String[] {"Nr_kategorii", "Kategoria", "Minimalny wiek", "Maksymalny wiek" },0);
-            dao = new Kategorie_wiekoweDAO(new JdbcTemplate(dataSource));
-            model.getDataVector().removeAllElements();
-            addDataToTable(dao,table,model);
+            pomz = 0;
+            pomt = 0;
+            if(pomk==0){
+                table.setSize(500,500);
+                model = new javax.swing.table.DefaultTableModel(new String[] {"Nr_kategorii", "Kategoria", "Minimalny wiek", "Maksymalny wiek" },0);
+                dao = new Kategorie_wiekoweDAO(new JdbcTemplate(dataSource));
+                model.getDataVector().removeAllElements();
+                addDataToTable(dao,table,model);
+                pomk += 1;
+            }
             if(source==ButtonDisplay){
                 sp.setVisible(true);
                 inputPanel.setVisible(false);
                 deletePanel.setVisible(false);
                 updatePanel.setVisible(false);
+                inputPanelT.setVisible(false);
+                inputPanelZ.setVisible(false);
+                deletePanelZ.setVisible(false);
+                deletePanelT.setVisible(false);
+                updatePanelZ.setVisible(false);
+                updatePanelT.setVisible(false);
             }
 
             if(source==Add) {
                 sp.setVisible(true);
                 deletePanel.setVisible(false);
                 updatePanel.setVisible(false);
+                inputPanelT.setVisible(false);
+                inputPanelZ.setVisible(false);
+                deletePanelZ.setVisible(false);
+                deletePanelT.setVisible(false);
+                updatePanelZ.setVisible(false);
+                updatePanelT.setVisible(false);
                 Kategoria.setText("");
                 Min_wiek.setText("");
                 Max_wiek.setText("");
@@ -392,16 +541,19 @@ public class GUI extends JFrame implements ActionListener {
             if(source==Delete){
                 inputPanel.setVisible(false);
                 updatePanel.setVisible(false);
+                inputPanelT.setVisible(false);
+                inputPanelZ.setVisible(false);
+                deletePanelZ.setVisible(false);
+                deletePanelT.setVisible(false);
+                updatePanelZ.setVisible(false);
+                updatePanelT.setVisible(false);
                 deletePanel.setVisible(true);
                 sp.setVisible(true);
                 Nr_KategoriiD.setText("");
             }
 
             if(source==DeleteButton){
-                System.out.println("Delete");
-                //Kategorie_wiekowe kategorie_wiekowe = new Kategorie_wiekowe();
                 int nr_kategorii = Integer.parseInt(Nr_KategoriiD.getText());
-                System.out.println(Nr_KategoriiD.getText());
                 dao.delete(nr_kategorii);
                 dao = new Kategorie_wiekoweDAO(new JdbcTemplate(dataSource));
                 model.getDataVector().removeAllElements();
@@ -414,6 +566,12 @@ public class GUI extends JFrame implements ActionListener {
             if(source==Update){
                 inputPanel.setVisible(false);
                 deletePanel.setVisible(false);
+                inputPanelT.setVisible(false);
+                inputPanelZ.setVisible(false);
+                deletePanelZ.setVisible(false);
+                deletePanelT.setVisible(false);
+                updatePanelZ.setVisible(false);
+                updatePanelT.setVisible(false);
                 updatePanel.setVisible(true);
                 sp.setVisible(true);
                 Nr_Kategorii.setText("");
@@ -423,7 +581,6 @@ public class GUI extends JFrame implements ActionListener {
             }
 
             if (source==UpdateButton){
-                System.out.println("Update");
                 Kategorie_wiekowe kategorie_wiekowe = new Kategorie_wiekowe();
                 kategorie_wiekowe.setNr_kategorii(Integer.parseInt(Nr_Kategorii.getText()));
                 kategorie_wiekowe.setKategoria(KategoriaU.getText());
@@ -440,20 +597,42 @@ public class GUI extends JFrame implements ActionListener {
             }
 
             if(source==Refresh){
+                inputPanel.setVisible(false);
+                deletePanel.setVisible(false);
+                updatePanel.setVisible(false);
+                inputPanelT.setVisible(false);
+                inputPanelZ.setVisible(false);
+                deletePanelZ.setVisible(false);
+                deletePanelT.setVisible(false);
+                updatePanelZ.setVisible(false);
+                updatePanelT.setVisible(false);
                 dao = new Kategorie_wiekoweDAO(new JdbcTemplate(dataSource));
                 model.getDataVector().removeAllElements();
                 addDataToTable(dao,table,model);
             }
 
             if(source==DeleteAll){
+                inputPanel.setVisible(false);
+                deletePanel.setVisible(false);
+                updatePanel.setVisible(false);
+                inputPanelT.setVisible(false);
+                inputPanelZ.setVisible(false);
+                deletePanelZ.setVisible(false);
+                deletePanelT.setVisible(false);
+                updatePanelZ.setVisible(false);
+                updatePanelT.setVisible(false);
+                sp.setVisible(true);
                 List<String> listD1 =dao.listcol("NR_KATEGORII");
                 List<String> listD2 =daozaw.listcol("NR_KATEGORII");
+                System.out.println(listD2);
                 table.setModel(model);
                 for(int i=0;i<listD1.size();i++) {
                     for(int j=0;j<listD2.size();j++){
-                        if(!listD1.get(i).equals(listD2.get(j))){
+                        if(listD1.get(i).equals(listD2.get(j))){
+                            j=listD2.size()+1;
+                        }
+                        else {
                             dao.delete(Integer.parseInt(listD1.get(i)));
-                            j=listD2.size();
                         }
                     }
                 }
@@ -464,10 +643,15 @@ public class GUI extends JFrame implements ActionListener {
 
         }
         if (changeTable.getSelectedIndex() == 1){
+            pomk=0;
+            pomt=0;
             inputPanel.setVisible(false);
+            inputPanelT.setVisible(false);
             deletePanel.setVisible(false);
+            deletePanelT.setVisible(false);
             updatePanel.setVisible(false);
-            if(pom==0){
+            updatePanelT.setVisible(false);
+            if(pomz==0){
                 sp.setSize(900,500);
                 table.setSize(900,500);
                 model.getDataVector().removeAllElements();
@@ -477,16 +661,30 @@ public class GUI extends JFrame implements ActionListener {
                 table.getColumnModel().getColumn(8).setPreferredWidth(100);
                 daozaw = new ZawodnicyDAO(new JdbcTemplate(dataSource));
                 addDataZawToTable(daozaw,table,model);
-                pom += 1;
+                pomz += 1;
             }
             if(source==ButtonDisplay){
                 sp.setVisible(true);
+                inputPanel.setVisible(false);
+                deletePanel.setVisible(false);
+                updatePanel.setVisible(false);
+                inputPanelT.setVisible(false);
                 inputPanelZ.setVisible(false);
                 deletePanelZ.setVisible(false);
+                deletePanelT.setVisible(false);
                 updatePanelZ.setVisible(false);
+                updatePanelT.setVisible(false);
             }
             if (source==Add){
                 inputPanelZ.setVisible(true);
+                inputPanel.setVisible(false);
+                deletePanel.setVisible(false);
+                updatePanel.setVisible(false);
+                inputPanelT.setVisible(false);
+                deletePanelZ.setVisible(false);
+                deletePanelT.setVisible(false);
+                updatePanelZ.setVisible(false);
+                updatePanelT.setVisible(false);
                 /*
                 Imie.setText("");
                 Nazwisko.setText("");
@@ -502,11 +700,14 @@ public class GUI extends JFrame implements ActionListener {
 
             if (source==SaveZ){
                 Zawodnicy zawodnicy = new Zawodnicy(0, Imie.getText(), Nazwisko.getText(), Plec.getText(), Float.parseFloat(Wzrost.getText()), Float.parseFloat(Waga.getText()), Data_Urodzenia.getText(), Narodowosc.getText(), Pesel.getText(), Integer.parseInt(Nr_Kategorii.getText()), Integer.parseInt(Nr_Adresu.getText()));
+                System.out.println(zawodnicy.toString());
+                /*
                 daozaw.save(zawodnicy);
-                Trenerzy trenerzy = new Trenerzy(0,Imie.getText(), Imie.getText(), Imie.getText(), Imie.getText(), Integer.parseInt(Imie.getText()));
+                //Trenerzy trenerzy = new Trenerzy(0,Imie.getText(), Imie.getText(), Imie.getText(), Imie.getText(), Integer.parseInt(Imie.getText()));
                 daozaw = new ZawodnicyDAO(new JdbcTemplate(dataSource));
                 model.getDataVector().removeAllElements();
-                addDataZawToTable(daozaw,table,model);
+                addDataZawToTable(daozaw,table,model);*/
+
                 Imie.setText("");
                 Nazwisko.setText("");
                 Plec.setText("");
@@ -519,18 +720,163 @@ public class GUI extends JFrame implements ActionListener {
                 Nr_Adresu.setText("");
             }
 
+            if(source==Delete) {
+                inputPanel.setVisible(false);
+                updatePanel.setVisible(false);
+                inputPanelT.setVisible(false);
+                inputPanelZ.setVisible(false);
+                deletePanelZ.setVisible(true);
+                deletePanelT.setVisible(false);
+                updatePanelZ.setVisible(false);
+                updatePanelT.setVisible(false);
+                deletePanel.setVisible(false);
+            }
+
         }
         if (changeTable.getSelectedIndex() == 2){
-            pom = 0;
-            model.getDataVector().removeAllElements();
-            model.setColumnIdentifiers(new String[] {"Nr_trenera", "Imie", "Nazwisko", "Dyscyplina", "Pesel", "Pensja"});
-            daotre = new TrenerzyDAO(new JdbcTemplate(dataSource));
-            addDataTreToTable(daotre,table,model);
+            pomz = 0;
+            pomk = 0;
+            if(pomt==0){
+                sp.setSize(800,300);
+                table.setSize(500,500);
+                model.getDataVector().removeAllElements();
+                model.setColumnIdentifiers(new String[] {"Nr_trenera", "Imie", "Nazwisko", "Dyscyplina", "Pesel", "Pensja"});
+                daotre = new TrenerzyDAO(new JdbcTemplate(dataSource));
+                addDataTreToTable(daotre,table,model);
+                pomt +=1;
+            }
             if(source==ButtonDisplay){
                 sp.setVisible(true);
                 inputPanel.setVisible(false);
+                inputPanelT.setVisible(false);
+                inputPanelZ.setVisible(false);
+                deletePanel.setVisible(false);
+                deletePanelZ.setVisible(false);
+                deletePanelT.setVisible(false);
+                updatePanel.setVisible(false);
+                updatePanelZ.setVisible(false);
+                updatePanelT.setVisible(false);
+            }
+            if(source==Add){
+                sp.setVisible(true);
+                inputPanelT.setVisible(true);
+                inputPanel.setVisible(false);
                 deletePanel.setVisible(false);
                 updatePanel.setVisible(false);
+                inputPanelZ.setVisible(false);
+                deletePanelZ.setVisible(false);
+                deletePanelT.setVisible(false);
+                updatePanelZ.setVisible(false);
+                ImieT.setText("");
+                NazwiskoT.setText("");
+                DyscyplinaT.setText("");
+                PeselT.setText("");
+                PensjaT.setText("");
+            }
+            if(source==SaveT){
+                Trenerzy trenerzy = new Trenerzy(0,ImieT.getText(), NazwiskoT.getText(), DyscyplinaT.getText(), PeselT.getText(), Integer.parseInt(PensjaT.getText()));
+                daotre.save(trenerzy);
+                daotre = new TrenerzyDAO(new JdbcTemplate(dataSource));
+                model.getDataVector().removeAllElements();
+                addDataTreToTable(daotre,table,model);
+                ImieT.setText("");
+                NazwiskoT.setText("");
+                DyscyplinaT.setText("");
+                PeselT.setText("");
+                PensjaT.setText("");
+            }
+
+            if(source==Delete){
+                inputPanel.setVisible(false);
+                deletePanel.setVisible(false);
+                updatePanel.setVisible(false);
+                inputPanelT.setVisible(false);
+                inputPanelZ.setVisible(false);
+                deletePanelZ.setVisible(false);
+                updatePanelZ.setVisible(false);
+                updatePanelT.setVisible(false);
+                deletePanelT.setVisible(true);
+                sp.setVisible(true);
+                Nr_TreneraD.setText("");
+            }
+
+            if(source==DeleteButtonT){
+                int nr_trenera = Integer.parseInt(Nr_TreneraD.getText());
+                daotre.delete(nr_trenera);
+                daotre = new TrenerzyDAO(new JdbcTemplate(dataSource));
+                model.getDataVector().removeAllElements();
+                addDataTreToTable(daotre,table,model);
+                Nr_TreneraD.setText("");
+            }
+
+            if(source==Update){
+                inputPanel.setVisible(false);
+                deletePanel.setVisible(false);
+                updatePanel.setVisible(false);
+                inputPanelT.setVisible(false);
+                inputPanelZ.setVisible(false);
+                deletePanelZ.setVisible(false);
+                deletePanelT.setVisible(false);
+                updatePanelZ.setVisible(false);
+                updatePanelT.setVisible(true);
+                sp.setVisible(true);
+                ImieT.setText("");
+                NazwiskoT.setText("");
+                DyscyplinaT.setText("");
+                PeselT.setText("");
+                PensjaT.setText("");
+            }
+
+            if(source==UpdateButtonT){
+                System.out.println("Update");
+                Trenerzy trenerzy = new Trenerzy();
+                trenerzy.setNr_trenera(Integer.parseInt(Nr_TreneraU.getText()));
+                trenerzy.setImie(ImieTU.getText());
+                trenerzy.setNazwisko(NazwiskoTU.getText());
+                trenerzy.setDyscyplina(DyscyplinaTU.getText());
+                trenerzy.setPesel(PeselTU.getText());
+                trenerzy.setPensja(Integer.parseInt(PensjaTU.getText()));
+                daotre.update(trenerzy);
+                daotre = new TrenerzyDAO(new JdbcTemplate(dataSource));
+                model.getDataVector().removeAllElements();
+                addDataTreToTable(daotre,table,model);
+                ImieT.setText("");
+                NazwiskoT.setText("");
+                DyscyplinaT.setText("");
+                PeselT.setText("");
+                PensjaT.setText("");
+
+            }
+
+            if (source==Refresh) {
+
+            }
+
+            if(source==DeleteAll) {
+                inputPanel.setVisible(false);
+                deletePanel.setVisible(false);
+                updatePanel.setVisible(false);
+                inputPanelT.setVisible(false);
+                inputPanelZ.setVisible(false);
+                deletePanelZ.setVisible(false);
+                deletePanelT.setVisible(false);
+                updatePanelZ.setVisible(false);
+                updatePanelT.setVisible(false);
+                sp.setVisible(true);
+                List<String> listD1 =daotre.listcol("NR_TRENERA");
+                table.setModel(model);
+                for(int i=0;i<listD1.size();i++) {
+                    daotre.delete(Integer.parseInt(listD1.get(i)));
+                }
+                daotre = new TrenerzyDAO(new JdbcTemplate(dataSource));
+                model.getDataVector().removeAllElements();
+                addDataTreToTable(daotre,table,model);
+            }
+
+            if(source==Refresh){
+                daotre = new TrenerzyDAO(new JdbcTemplate(dataSource));
+                model.getDataVector().removeAllElements();
+                addDataTreToTable(daotre,table,model);
             }
 
         }

@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Trenerzy {
 
-    private int idTrenera;
+    private int nr_trenera;
     private String imie;
     private String nazwisko;
     private String dyscyplina;
@@ -15,8 +15,8 @@ public class Trenerzy {
     public Trenerzy() {
     }
 
-    public Trenerzy(int idTrenera, String imie, String nazwisko, String dyscyplina, String pesel, int pensja) {
-        this.idTrenera = idTrenera;
+    public Trenerzy(int nr_trenera, String imie, String nazwisko, String dyscyplina, String pesel, int pensja) {
+        this.nr_trenera = nr_trenera;
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.dyscyplina = dyscyplina;
@@ -24,12 +24,12 @@ public class Trenerzy {
         this.pensja = pensja;
     }
 
-    public int getIdTrenera() {
-        return idTrenera;
+    public int getNr_trenera() {
+        return nr_trenera;
     }
 
-    public void setIdTrenera(int idTrenera) {
-        this.idTrenera = idTrenera;
+    public void setNr_trenera(int nr_trenera) {
+        this.nr_trenera = nr_trenera;
     }
 
     public String getImie() {

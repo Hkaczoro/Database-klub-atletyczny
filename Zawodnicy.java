@@ -20,9 +20,11 @@ public class Zawodnicy {
     private int numer_adresu;
     // Constructor of superclass
 
+
+    public  Zawodnicy(){
+
+    }
     // Constructor
-
-
     public Zawodnicy(int nr_zawodnika, String imie, String nazwisko, String plec, float wzrost, float waga, String data_urodzenia, String narodowosc, String pesel, int numer_kategorii, int numer_adresu) {
         super();
         this.nr_zawodnika = nr_zawodnika;
